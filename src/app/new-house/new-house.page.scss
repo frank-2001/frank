@@ -1,0 +1,15 @@
+ion-content{
+    // --background:linear-gradient(135deg,rgb(53, 1, 196),rgb(0, 140, 255)),rgba(0, 4, 255, 0.836) ;
+    --background:url('../../assets/tchno.jpg')center repeat;
+
+    #container{
+        padding-top: 10%;
+        padding-bottom: 10%;
+        border-radius: 30px 30px 30px 30px;
+    }
+    .title{
+        padding: 5px;
+        text-align: center;
+        // font-size: 120%;
+    }
+}

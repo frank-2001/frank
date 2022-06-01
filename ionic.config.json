@@ -1,0 +1,7 @@
+{
+  "name": "Map Control",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

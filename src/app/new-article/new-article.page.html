@@ -1,0 +1,56 @@
+<ion-content>
+  <div class="img" style="height: 20%;" >
+    <center>
+      <ion-button slot="end" color="danger" (click)="fx.dismiss()">
+        <ion-icon name="close" ></ion-icon>
+      </ion-button>
+    </center>
+  </div>
+  <ion-card id="container">
+    <ion-card class="title">
+      Nouvel Article
+    </ion-card>
+    <form>  
+      <ion-item lines="full">
+        <ion-label position="floating"><ion-icon  name="pencil" color="primary" ></ion-icon> Nom de l'article </ion-label>
+        <ion-input type="text" [(ngModel)]="article.names" name="nom"></ion-input>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item lines="full">
+              <ion-label position="floating"><ion-icon  name="pricetag" color="primary" ></ion-icon> Prix de l'article </ion-label>
+              <ion-input type="number" [(ngModel)]="article.price" name="nom"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item lines="full">
+              <ion-label position="floating"><ion-icon  name="pricetag" color="primary" ></ion-icon> Dévise </ion-label>
+              <ion-select  name="commune" [(ngModel)]="article.devise">
+                <ion-select-option value="$">$ (Dollars)</ion-select-option>
+                <ion-select-option value="Fc">Fc (Franc Congolais)</ion-select-option>
+              </ion-select>         
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-item lines="full">
+        <ion-label position="floating"><ion-icon  name="pencil" color="primary" ></ion-icon> Quantité </ion-label>
+        <ion-input type="number" [(ngModel)]="article.entrer" name="nom"></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating"><ion-icon  name="pricetag" color="primary" ></ion-icon> Maison </ion-label>
+        <ion-select  name="commune" [(ngModel)]="article.house">
+          <ion-select-option *ngFor="let h of house">{{h.names}}</ion-select-option>
+        </ion-select>         
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating"><ion-icon  name="pencil" color="primary" ></ion-icon> Libelé </ion-label>
+        <ion-input type="text" [(ngModel)]="article.libele" name="nom" style="height: 50%;"></ion-input>
+      </ion-item>
+      <center>
+        <ion-button color="primary" (click)="saveArticle()">Valider</ion-button>
+      </center>
+  </form>
+  </ion-card>
+</ion-content>

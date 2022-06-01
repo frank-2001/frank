@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Mes Commandes
+    </ion-title>
+    <ion-icon name="reload" color="primary" size="large" slot="end" (click)="getCmd()"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list *ngIf="one==0">
+    <ion-item *ngFor="let cmd of cmds" (click)="oneCmd(cmd.id)">
+      <ion-icon name="calendar" slot="start" color="primary"></ion-icon>
+      <ion-label>{{cmd.user}}
+        <p>{{cmd.stmp}} </p>
+      </ion-label>
+      <ion-icon name="close" color="danger" *ngIf="cmd.state==-1"></ion-icon>
+      <ion-icon name="checkmark-circle" color="primary" *ngIf="cmd.state==1"></ion-icon>
+      <ion-icon name="warning" color="warning" *ngIf="cmd.state==0"></ion-icon>
+
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="one==1">
+    <ion-item>
+    <ion-icon  color="primary" size="medium" (click)="one=0" name="arrow-back-circle"></ion-icon>
+    </ion-item>
+    <ion-item *ngFor="let cd of cmd[0].articles">
+      <ion-icon name="grid" slot="start" color="primary"></ion-icon>
+      <ion-label slot="end">{{cd.title}} 
+        <p>
+          {{cd.qte}} pcs {{cd.pt}} $
+        </p>
+      </ion-label> 
+    </ion-item>
+    <ion-item *ngIf="profil.admin==1 && cmd[0].state==0">
+      <ion-badge slot="start" color="primary" (click)="confirm(cmd[0].id,1)">Confirmer</ion-badge>
+      <ion-badge slot="end" color="danger" (click)="confirm(cmd[0].id,-1)">Annuler</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

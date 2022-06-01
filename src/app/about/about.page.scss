@@ -1,0 +1,35 @@
+.frame{
+    width: 100%;
+    height: 100%;
+}
+ion-content{
+    --background:url('../../assets/tchno.jpg')center no-repeat;
+    --background-size:100%;
+    --color:white;
+}
+ion-list{
+    --background:transparent;
+
+}
+ion-item{
+    --background:transparent;
+    color: white;
+    font-family: inherit;
+
+}
+.contact{
+    padding: 10% 0 10% 0;
+    margin: 10%;
+    background:rgba(0, 0, 0, 0.438);
+    border-radius: 10%;
+    font-family: inherit;
+    font-size: 120%;
+
+}
+ion-toolbar{
+    --background:rgba(0, 0, 0, 0.295);
+ 
+}
+a{
+    color: blanchedalmond;
+}

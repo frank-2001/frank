@@ -1,0 +1,58 @@
+<ion-content>
+  <ion-item lines="full">
+    <ion-chip slot="end" color="light" (click)="fx.dismiss()">
+      <ion-label>Fermer</ion-label>
+      <ion-icon name="close" color="danger"></ion-icon>
+    </ion-chip>
+  </ion-item>
+  <ion-card id="container" *ngIf="new==1">
+    <h4 class="title">Nouveau compte</h4>
+    <form>  
+      <ion-item lines="full" class="item">
+        <ion-label position="floating"><ion-icon  name="person" color="primary" ></ion-icon>&nbsp;Noms</ion-label>
+        <ion-input type="text" [(ngModel)]="names" name="nom"></ion-input>
+      </ion-item>
+      <ion-item lines="full" class="item">
+        <ion-label position="floating"><ion-icon  name="call" color="primary" ></ion-icon>&nbsp;Numero telephone (ex: 243973472538)</ion-label>
+        <ion-input type="number" [(ngModel)]="phone" name="nom"></ion-input>
+      </ion-item>
+      <ion-item lines="full" class="item">
+        <ion-label position="floating"><ion-icon  name="location" color="primary" ></ion-icon>&nbsp;Adresse</ion-label>
+        <ion-input type="text" [(ngModel)]="adr" name="adr"></ion-input>
+      </ion-item>
+      <ion-item lines="full" class="item">
+        <ion-label position="floating"><ion-icon  name="key" color="primary" ></ion-icon>&nbsp;Mot de passe</ion-label>
+        <ion-input type="password" [(ngModel)]="pass1" name="nom"></ion-input>
+      </ion-item>
+      <ion-item lines="full" class="item">
+        <ion-label position="floating"><ion-icon  name="key" color="primary" ></ion-icon>&nbsp;Repeat votre mot de passe</ion-label>
+        <ion-input type="password" [(ngModel)]="pass2" name="nom"></ion-input>
+      </ion-item>
+      <center>
+        <ion-label color="danger" *ngIf="pass1!=pass2 && pass1!=null && pass2!=null">Mot de passe differents</ion-label><br>
+        <ion-button [disabled]="!pass1 || !pass2 || !names || !phone || pass1!=pass2" (click)="saveAdmin(names,phone,pass1,adr)">Enregistrer</ion-button></center>
+    </form>
+  </ion-card>
+  <ion-card id="container"  *ngIf="new==0">
+    <h4 class="title">Connexion</h4>
+    <form>  
+      <ion-item lines="full" class="item">
+        <ion-label position="floating"><ion-icon  name="call" color="primary" ></ion-icon>&nbsp;Numero de telephone</ion-label>
+
+        <ion-input type="text" [(ngModel)]="house" name="nom"></ion-input>
+      </ion-item>
+      <ion-item lines="full" class="item">
+        <ion-label position="floating"><ion-icon  name="key" color="primary"></ion-icon>&nbsp; Mot de passe </ion-label>
+        <ion-input type="password" [(ngModel)]="pass" name="nom" style="height: 50%;"></ion-input>
+      </ion-item>
+      <center>
+        <ion-button color="primary" (click)="connect(house,pass)" [disabled]=" !house || !pass">Valider</ion-button>
+        <ion-item>
+        <ion-label slot="start" (click)="new=1">Nouveau Compte ?</ion-label>
+      </ion-item>
+      </center>
+      
+  </form>
+  </ion-card>
+</ion-content>
+

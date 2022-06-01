@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Panier
+    </ion-title>
+    <ion-icon name="reload" slot="end" size="large" color="primary" (click)="getPAnier()"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="commande==1 && cmd!=undefined">
+    <center>
+      <ion-icon name="close" color="danger" (click)="update()" size="large"></ion-icon>
+    </center>
+    <ion-item lines="full">
+      <ion-thumbnail slot="start">
+        <ion-img src="{{fx.adrImg}}{{cmd.image}}"></ion-img>
+      </ion-thumbnail>
+      <ion-label  slot="start">
+        <strong >{{cmd.title}}</strong><br>
+        <ion-icon name="pricetags"></ion-icon>&nbsp;{{cmd.price}}
+      </ion-label>
+    </ion-item>
+      <form>  
+        <ion-item lines="full" class="item">
+          <ion-label position="floating">Entrer la quantite pour cet article</ion-label>  
+          <ion-input type="text" [(ngModel)]="qte" name="qte"></ion-input>
+        </ion-item>
+        <center>
+          <ion-button color="primary" [disabled]="!qte"  (click)="getCmd(cmd.id,qte)" (click)="qte=''" >Valider</ion-button>
+        </center>
+      </form>
+  </ion-card>
+  <ion-card *ngIf="allCmd==1">
+    <center>
+      <ion-icon name="close" color="danger" (click)="update()" size="large"></ion-icon>
+    </center>
+      <ion-list>
+        <ion-item *ngFor="let itm of myCmd">
+          <ion-label slot="start">
+            {{itm.title}} - {{itm.qte}} pcs
+          </ion-label>
+          <ion-label slot="end">
+            <strong>{{itm.pt}} $</strong>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label slot="start">
+            Total
+          </ion-label>
+          <ion-label slot="end">
+            <strong>{{total}} $</strong>
+          </ion-label>
+        </ion-item>
+        <center>
+          <ion-button [disabled]="articles.length!=0" (click)="sendCmd()" color="primary">
+            valider
+          </ion-button>
+        </center>
+      </ion-list>
+  </ion-card>
+
+  <ion-list *ngIf="commande==0">
+    <ion-item *ngFor="let item of articles,let index=index" lines="full">
+     <ion-thumbnail slot="start">
+       <ion-img src="{{fx.adrImg}}{{item.image}}"></ion-img>
+     </ion-thumbnail>
+     <ion-label  slot="start">
+       <strong >{{item.title}}</strong><br>
+       <ion-icon name="pricetags"></ion-icon>&nbsp;{{item.price}}
+     </ion-label>
+     <div slot="end">
+       <ion-icon name="trash"  color="danger" (click)="delete(item.id)" size="large"></ion-icon>
+     </div>
+   </ion-item>
+ </ion-list>
+</ion-content>
+<footer>
+<center>
+  <ion-button (click)="commande=1" color="primary" >Commander</ion-button>
+</center>
+</footer>

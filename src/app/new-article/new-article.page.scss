@@ -1,0 +1,13 @@
+ion-content{
+    --background:linear-gradient(135deg,rgb(26, 41, 250),rgb(0, 204, 255),rgb(38, 7, 124)) ;
+    #container{
+        padding-top: 10%;
+        padding-bottom: 10%;
+        border-radius: 30px 30px 30px 30px;
+    }
+    .title{
+        padding: 5px;
+        text-align: center;
+        font-size: 120%;
+    }
+}

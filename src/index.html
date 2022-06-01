@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Instantanous</title>
+
+  <base href="/" />
+
+  <meta name="color-scheme" content="light dark" />
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+
+  <link rel="icon" type="image/png" href="assets/logo.jpg" />
+  <style>
+    .loader{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:  linear-gradient(45deg,rgb(64, 76, 248),rgb(125, 240, 72));
+    justify-content: center;
+    align-items: center;
+    color:rgb(255, 255, 255);
+    font-size: 150%;
+    text-align: center;
+    padding-top: 50%;
+    font-family: monospace;
+}
+.dot{
+    animation: flash 2.8s linear infinite;
+}
+@keyframes flash {
+    0%{
+        color:rgb(255, 255, 255);
+        text-shadow: 0 0 7px rgb(0, 0, 0);
+
+    }
+    50%{
+        color:#575757;
+        text-shadow: none;
+
+    }
+    100%{
+        color:rgb(255, 255, 255);
+        text-shadow: 0 0 7px rgb(0, 0, 0);
+    }
+}
+
+.dot:nth-child(1){
+    animation-delay: 0.1s;
+}
+.dot:nth-child(2){
+    animation-delay: 0.2s;
+}
+.dot:nth-child(3){
+    animation-delay: 0.4s;
+}
+.dot:nth-child(4){
+    animation-delay: 0.8s;
+}
+.dot:nth-child(5){
+    animation-delay: 1.2s;
+}
+.dot:nth-child(6){
+    animation-delay: 1.6s;
+}
+.dot:nth-child(7){
+    animation-delay: 2s;
+}
+.dot:nth-child(8){
+    animation-delay: 2.2s;
+}
+.dot:nth-child(9){
+    animation-delay: 2.4s;
+}
+.dot:nth-child(10){
+    animation-delay: 2.8s;
+}
+.go-out{
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+  </style>
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+</head>
+
+<body>
+    <div class="loader">
+    <img src="assets/loading.gif" width="50px" alt="">
+    </div>
+  <app-root></app-root>
+</body>
+<script>
+  const loader=document.querySelector('.loader');
+  window.addEventListener('load',()=>{
+    loader.classList.add('go-out');
+  })
+</script>
+
+</html>

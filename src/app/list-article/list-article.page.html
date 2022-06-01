@@ -1,0 +1,143 @@
+<ion-content class="content">
+  
+    <ion-item lines="full" class="bar">
+      <ion-icon  name="arrow-back" (click)="fx.openPage('tabs/tab1','')" color="light" slot="start" size="large"></ion-icon>
+      <strong slot="end" id="tit">Modifier un article</strong>
+      <ion-icon  name="search-circle" (click)="show=1" color="light" slot="end" size="large"></ion-icon>
+    </ion-item>
+    <ion-searchbar *ngIf="show==1" [(ngModel)]="look"  (keyup)="onKey($event)" placeholder="Recherche rapide" animated></ion-searchbar>
+
+
+  <ion-card class="list" *ngIf="list==1">
+    <ion-list>
+      <ion-item *ngFor="let item of articles" (click)="oneArticle(item.id)" class="itm" lines="full">
+        <ion-icon name="file-tray"></ion-icon>&nbsp;<strong>{{item.names}}</strong>
+        <div slot="end">
+         {{item.house}}
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <ion-card *ngIf="list==0">
+    <!-- <center> -->
+      <!-- <ion-icon name="close" color="danger" (click)="list=1" size="large"></ion-icon> -->
+    <!-- </center> -->
+    <ion-item lines="full">
+      <ion-icon name="arrow-back" (click)="list=1" color="primary" size="medium" slot="start"></ion-icon>
+      <ion-label slot="start"><strong>{{article[0].names}}</strong><br>
+        Pu: {{article[0].price}} {{article[0].devise}}</ion-label>
+        <ion-label>
+          <strong >{{article[0].house}}</strong><br>
+          {{article[0].libele}}
+        </ion-label>
+      <ion-icon *ngIf="admin==false" name="trash" color="danger" (click)="remove(article[0].id)" slot="end"></ion-icon>
+      <!-- <ion-icon name="reload" color="primary" (click)="update()" slot="end"></ion-icon> -->
+
+    </ion-item>
+    <ion-card color="medium" *ngIf="admin==false">
+      <center style="padding: 2%;">Formulaire de mouvement</center>
+      <form>
+        <ion-item lines="full">
+          <ion-label position="floating"><ion-icon  name="pricetag" color="primary" ></ion-icon> Opération </ion-label>
+          <ion-select  name="commune" [(ngModel)]="mouvement.etat">
+            <ion-select-option>Entrer</ion-select-option>
+            <ion-select-option>Sortie</ion-select-option>
+          </ion-select>         
+        </ion-item>
+        <ion-item lines="full" *ngIf="mouvement.etat!=null">
+          <ion-label position="floating"><ion-icon  name="pricetag" color="primary" ></ion-icon> Quantité </ion-label>
+          <ion-input type="number" [(ngModel)]="mouvement.qte" name="nom"></ion-input>
+        </ion-item>
+        <ion-grid *ngIf="mouvement.etat=='Sortie'">
+          <ion-row>
+            <ion-col size="6">
+              <ion-item lines="full">
+                <ion-label position="floating"><ion-icon  name="pricetag" color="primary" ></ion-icon> Prix Unitaire </ion-label>
+                <ion-input type="number" [(ngModel)]="mouvement.pu" name="achat"></ion-input>        
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item lines="full">
+                <ion-label position="floating"><ion-icon  name="pricetag" color="primary" ></ion-icon> Dévise </ion-label>
+                <ion-select  name="commune" [(ngModel)]="mouvement.devise">
+                  <ion-select-option value="$">$ (Dollars)</ion-select-option>
+                  <ion-select-option value="Fc">Fc (Franc Congolais)</ion-select-option>
+                </ion-select>         
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item lines="full" *ngIf="mouvement.etat=='Sortie'">
+          <ion-label position="floating"><ion-icon  name="pricetag" color="primary" ></ion-icon> Paiement </ion-label>
+          <ion-select  name="commune" [(ngModel)]="mouvement.pay">
+            <ion-select-option>Cash</ion-select-option>
+            <ion-select-option>Crédit</ion-select-option>
+          </ion-select>         
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating"><ion-icon  name="pricetag" color="primary" ></ion-icon> Libele de l'operation </ion-label>
+          <ion-input type="text" [(ngModel)]="mouvement.libele" name="achat"></ion-input>
+        </ion-item>
+        <center><ion-button (click)="articleUpdate()" color="primary" *ngIf="mouvement.qte!=null">Valider</ion-button></center>
+      </form>
+    </ion-card>
+
+    <ion-grid class="table">
+      <ion-row class="titleGrid">
+        <strong>Resumé Stock</strong>
+      </ion-row>
+      <ion-row class="headTable">
+        <ion-col size="4">Entrer</ion-col>
+        <ion-col size="4">Sortie</ion-col>
+        <ion-col size="4">solde</ion-col>
+      </ion-row>
+      <ion-row class="row" *ngFor="let article of article">
+        <ion-col size="4">{{article.entrer}}</ion-col>
+        <ion-col size="4">{{article.sortie}}</ion-col>
+        <ion-col size="4">{{article.entrer-article.sortie}}</ion-col>
+      </ion-row>
+      <ion-row class="titleGrid">
+        <strong>Resumé Caisse</strong>
+      </ion-row>
+      <ion-row class="headTable">
+        <ion-col size="6">Franc congolais</ion-col>
+        <ion-col size="6">Dollars Americain</ion-col>
+      </ion-row>
+      <ion-row class="row" >
+        <ion-col size="6" style="background: rgb(255, 247, 247);color:rgb(0, 0, 0)"><strong>{{caisseAmountFc}} Fc</strong></ion-col>
+        <ion-col size="6" style="background: rgb(255, 255, 255);color:rgb(0, 0, 0)"><strong>{{caisseAmountDol}} $</strong></ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="table">
+      <ion-row class="titleGrid">
+        <strong>Circulation de l'article</strong>
+      </ion-row>
+      
+      <ion-row class="headTable">
+        <ion-col size="2">Jour</ion-col>
+        <ion-col size="2">Mouv</ion-col>
+        <ion-col size="2">Qte</ion-col>
+        <ion-col size="2">PU</ion-col>
+        <ion-col size="2">PT</ion-col>
+        <ion-col size="2">Paie</ion-col>
+      </ion-row>
+      <ion-row class="row" *ngFor="let m of mouv">
+        <ion-col size="2">{{m.time|date:'d/M/yy'}}</ion-col>
+        <ion-col size="2">{{m.action}}</ion-col>
+        <ion-col size="2">{{m.qte}}</ion-col>
+        <ion-col size="2" *ngIf="m.payment=='Crédit'" style="background: yellow;">{{m.pu}} {{m.devise}}</ion-col>
+        <ion-col size="2" *ngIf="m.payment=='Reglement'" style="background: rgb(0, 14, 206);color: white;">{{m.pu}} {{m.devise}}</ion-col>        
+        <ion-col size="2" *ngIf="m.payment=='Cash'">{{m.pu}} {{m.devise}}</ion-col>
+        <ion-col size="2" *ngIf="m.payment==null">{{m.pu}} {{m.devise}}</ion-col>
+        <ion-col size="2">{{m.cout}}</ion-col>
+        <ion-col size="2">{{m.payment}}</ion-col>
+      </ion-row>
+      <ion-row class="row" >
+        <ion-col size="4"><center>Caisse</center></ion-col>
+        <ion-col size="4" style="background: rgb(90, 90, 90);color:white"><strong>{{caisseAmountFc}} Fc</strong></ion-col>
+        <ion-col size="4" style="background: rgb(22, 11, 71);color:white"><strong>{{caisseAmountDol}} $</strong></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>

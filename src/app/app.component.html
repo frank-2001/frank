@@ -1,0 +1,20 @@
+<ion-app>
+  <ion-menu menuId="main-menu" content-id="main">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Instano</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-footer class="center" >
+      <ion-menu-toggle>
+      <ion-item (click)="fx.openPage('about','')">
+        <ion-icon name="help" color="primary"></ion-icon>&nbsp;
+        <ion-label>About
+          <p>https://instano.nunua-store.com</p>
+        </ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+    </ion-footer>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

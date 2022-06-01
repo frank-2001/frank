@@ -1,0 +1,39 @@
+.title{
+    padding-bottom:5%;
+    border-radius: 0 0 18px 18px;
+    width:100%;
+    // background:linear-gradient(135deg,rgb(26, 41, 250),rgb(0, 204, 255),rgb(38, 7, 124)) ;
+    color:white;
+}
+.bar{
+    --color:white;
+    --background:linear-gradient(135deg,rgb(26, 41, 250),rgb(0, 204, 255),rgb(38, 7, 124));
+    --border-radius: 0 0 18px 18px;
+    --padding-bottom:5%;
+    --padding-top:5%;
+
+}
+.house{
+    border-bottom: solid 2px white;
+}
+.table{
+    border-left:black solid 2px;
+    padding: 0%;
+    
+}
+.headTable{
+    background: linear-gradient(135deg,rgb(26, 41, 250),rgb(0, 204, 255),rgb(38, 7, 124));
+    color: white;
+}
+.row{
+    border-bottom:black solid 2px;
+}
+ion-col{
+    border-right:rgb(63, 63, 63) solid 2px;
+}
+.titleGrid{
+    padding: 10px;
+    text-align: center;
+    background: gray;
+    color: white;
+}

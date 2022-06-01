@@ -1,0 +1,59 @@
+<ion-content>
+  <div class="img" style="height: 20%;" >
+    <center>
+      <ion-button slot="end" color="danger" (click)="fx.dismiss()">
+        <ion-icon name="close" ></ion-icon>
+      </ion-button>
+    </center>
+    </div>
+  <ion-card id="container">
+    <center>
+    <ion-button class="title" *ngIf="user==0" color="warning">
+      Nouvelle Maison
+    </ion-button>
+    <ion-button class="title" *ngIf="user==1" (click)="user=0">
+      Nouvelle Maison
+    </ion-button>
+    <ion-button class="title" *ngIf="user==1" color="warning" >
+      Nouveau Manager
+    </ion-button>
+    <ion-button class="title" *ngIf="user==0" (click)="user=1">
+      Nouveau Manager
+    </ion-button>
+    </center>
+    <form *ngIf="user==0">  
+      <ion-item lines="full">
+        <ion-label position="floating"><ion-icon  name="pencil" color="primary" ></ion-icon> Nom de la maison </ion-label>
+        <ion-input type="text" [(ngModel)]="article.names" name="nom"></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating"><ion-icon  name="pencil" color="primary"></ion-icon> Description </ion-label>
+        <ion-input type="text" [(ngModel)]="article.libele" name="nom" style="height: 50%;"></ion-input>
+      </ion-item>
+      <center>
+        <ion-button color="primary" (click)="saveHouse()" [disabled]=" !article.names || !article.libele">Valider</ion-button>
+      </center>
+  </form>
+
+  <form *ngIf="user==1">  
+    <ion-item lines="full">
+      <ion-label position="floating"><ion-icon  name="pencil" color="primary" ></ion-icon> Nom d'Utilisateur </ion-label>
+      <ion-input type="text" [(ngModel)]="names" name="n" (keyup)="onkey($event,names)"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating"><ion-icon  name="pencil" color="primary"></ion-icon> Mot de de passe </ion-label>
+      <ion-input type="password" [(ngModel)]="password" name="p" style="height: 50%;"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating"><ion-icon  name="pricetag" color="primary" ></ion-icon> Houses </ion-label>
+      <ion-select  name="commune" [(ngModel)]="hs">
+        <ion-select-option *ngFor="let name of menu">{{name}}</ion-select-option>
+      </ion-select>         
+    </ion-item>
+    <center>
+      <ion-button *ngIf='load!=0' color="primary" (click)="saveUser(names,password,hs)" [disabled]=" !names || !hs || !password">Valider</ion-button>
+      <strong *ngIf='load==0'>Chargement....</strong>
+    </center>
+</form>
+  </ion-card>
+</ion-content>
