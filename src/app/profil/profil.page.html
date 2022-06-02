@@ -32,255 +32,284 @@
 </ion-card>
 
 <!-- Menu -->
-<ion-card id="container" class="menu">
-    <ion-chip color="primary" *ngIf="fx.profil.admin==1" (click)="post=1" (click)="clientsList=0" (click)="decaisse=0" (click)="sNotif=0" (click)="recharge=0" (click)="oneN=0">
-      <ion-icon name="add"></ion-icon>
+<center>
+  <ion-button size="small" (click)="menu=1" *ngIf="menu!=1">
+    <ion-icon name="list" slot="start"></ion-icon>
+    <ion-label>Menu</ion-label>
+  </ion-button>
+</center>
+
+<ion-card id="container" class="menu" *ngIf="menu==1">
+
+    <ion-item lines="full"  *ngIf="fx.profil.admin==1" (click)="post=1" (click)="stockList=0" (click)="menu=0" (click)="clientsList=0" (click)="decaisse=0" (click)="sNotif=0" (click)="recharge=0" (click)="oneN=0">
+      <ion-icon slot="start" name="add"></ion-icon>
       <ion-label>Publier</ion-label>
-    </ion-chip> 
+    </ion-item> 
 
-    <ion-chip color="warning" *ngIf="fx.profil.admin==1" (click)="decaisse=1" (click)="clientsList=0" (click)="sNotif=0" (click)="post=0" (click)="recharge=0" (click)="oneN=0">
-      <ion-icon name="remove"></ion-icon>
+    <ion-item lines="full"  *ngIf="fx.profil.admin==1" (click)="decaisse=1" (click)="stockList=0" (click)="menu=0" (click)="clientsList=0" (click)="sNotif=0" (click)="post=0" (click)="recharge=0" (click)="oneN=0">
+      <ion-icon slot="start" name="remove"></ion-icon>
       <ion-label>Decaisser</ion-label>
-    </ion-chip> 
+    </ion-item> 
 
-    <ion-chip color="primary" *ngIf="fx.profil.admin==0" (click)="recharge=1" (click)="clientsList=0" (click)="decaisse=0" (click)="post=0" (click)="sNotif=0" (click)="oneN=0">
-      <ion-icon name="wallet"></ion-icon>
+    <ion-item lines="full"  *ngIf="fx.profil.admin==0" (click)="recharge=1" (click)="stockList=0" (click)="menu=0" (click)="clientsList=0" (click)="decaisse=0" (click)="post=0" (click)="sNotif=0" (click)="oneN=0">
+      <ion-icon slot="start" name="wallet"></ion-icon>
       <ion-label>Approvisionner wallet</ion-label>
-    </ion-chip> 
+    </ion-item> 
 
-    <ion-chip color="primary" (click)="sNotif=1" (click)="clientsList=0" (click)="recharge=0" (click)="decaisse=0" (click)="post=0" (click)="oneN=0">
-      <ion-icon name="notifications"></ion-icon>
+    <ion-item lines="full"  (click)="sNotif=1" (click)="stockList=0" (click)="menu=0" (click)="clientsList=0" (click)="recharge=0" (click)="decaisse=0" (click)="post=0" (click)="oneN=0">
+      <ion-icon slot="start" name="notifications"></ion-icon>
       <ion-label>Notification &nbsp;  </ion-label>
       <ion-badge color="danger" size="small">{{notifNb}}</ion-badge>
-    </ion-chip>
+    </ion-item>
     
-    <ion-chip color="secondary" *ngIf="fx.profil.admin==1" (click)="clientsList=1" (click)="sNotif=0" (click)="recharge=0" (click)="decaisse=0" (click)="post=0" (click)="oneN=0">
-      <ion-icon name="list"></ion-icon>
+    <ion-item lines="full" *ngIf="fx.profil.admin==1" (click)="menu=0" (click)="clientsList=1" (click)="stockList=0" (click)="sNotif=0" (click)="recharge=0" (click)="decaisse=0" (click)="post=0" (click)="oneN=0">
+      <ion-icon slot="start" name="list"></ion-icon>
       <ion-label>Clients &nbsp;  </ion-label>
       <ion-badge color="danger" size="small">{{custums.length}}</ion-badge>
-    </ion-chip>
+    </ion-item>
 
-    <ion-chip color="secondary" *ngIf="fx.profil.admin==1" (click)="clientsList=1" (click)="sNotif=0" (click)="recharge=0" (click)="decaisse=0" (click)="post=0" (click)="oneN=0">
-      <ion-icon name="grid"></ion-icon>
+    <ion-item lines="full" *ngIf="fx.profil.admin==1" (click)="menu=0" (click)="stockList=1" (click)="clientsList=0" (click)="sNotif=0" (click)="recharge=0" (click)="decaisse=0" (click)="post=0" (click)="oneN=0">
+      <ion-icon slot="start" name="grid"></ion-icon>
       <ion-label>Stock &nbsp;  </ion-label>
       <ion-badge color="danger" size="small">{{custums.length}}</ion-badge>
-    </ion-chip>
+    </ion-item>
 
 
-    <ion-chip color="danger" (click)="dec()">
-      <ion-label>Deconnexion</ion-label>
-    </ion-chip> 
+    <ion-item lines="full"  color="danger" (click)="menu=0" (click)="dec()">
+      <ion-icon name="close" slot="start"></ion-icon>
+      <ion-label >Deconnexion</ion-label>
+    </ion-item> 
 </ion-card>
 
-<!-- Formulaire recharge compte -->
-<ion-card id="container" *ngIf="recharge==1">
-  <ion-item color="primary">
-    <ion-label>Formulaire Recharge</ion-label>
-  </ion-item>
-    <div class="message">
-      Pour recharger ton wallet, envoi la somme a recharger via :<br>
-      {{contact.telephone[0]}} : {{contact.telephone[1]}}<br>
-      {{contact.banque[0]}} : {{contact.banque[1]}}<br>
-      Puis complete le formulaire suivant.
-    </div>
-  <form>
-    <ion-grid>
-      <ion-row>
+<!-- Contenus chaque boutton -->
+<div *ngIf="menu!=1">
 
-        <ion-col size="12">
+    <!-- Formulaire recharge compte -->
+    <ion-card id="container" *ngIf="recharge==1">
+      <ion-item color="primary">
+        <ion-label>Formulaire Recharge</ion-label>
+      </ion-item>
+        <div class="message">
+          Pour recharger ton wallet, envoi la somme a recharger via :<br>
+          {{contact.telephone[0]}} : {{contact.telephone[1]}}<br>
+          {{contact.banque[0]}} : {{contact.banque[1]}}<br>
+          Puis complete le formulaire suivant.
+        </div>
+      <form>
+        <ion-grid>
+          <ion-row>
+
+            <ion-col size="12">
+              <ion-item lines="full">
+                <ion-label position="floating"><ion-icon  name="pricetags-sharp" color="success" ></ion-icon> Montant en $</ion-label>
+                <ion-input type="number" name="prix"  [(ngModel)]="montant"></ion-input>
+                <ion-input value="$" type="hidden" [(ngModel)]="devise" name="devise"></ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-item *ngIf="images!=null">
+                <ion-icon name="checkbox" slot="start" color="primary" ></ion-icon>
+                <ion-label slot="end">{{images}}</ion-label>
+              </ion-item>
+              <span class="btn btn-success fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <ion-chip color="primary" size="large">
+                  <ion-icon name="camera"></ion-icon>
+                  <ion-label>Capture du message de confirmation ou relevee </ion-label> 
+                </ion-chip>
+                <input type="file" name="image" [(ngModel)]="image" (change)="changed($event)"  accept="image/x-png, image/gif, image/jpeg">
+                </span>
+                <br>
+                <div style="width: 100%;height: 15px;background: rgb(255, 255, 255);border-radius: 10px;" *ngIf="activeProgress==true">
+                  <div style="height: 100%;background:linear-gradient(45deg, #cf2626 , #39d341ef , rgb(50, 50, 202));border-radius: 10px;" [ngStyle]="{'width.%': pourc}">
+                  </div>
+                </div>
+            </ion-col>
+
+          </ion-row>
+          <center>
+              <ion-button [disabled]="!montant || !image" (click)="compteRech(montant,images)">Valider</ion-button>
+          </center>
+      </ion-grid>
+      </form> 
+    </ion-card>
+
+    <!-- Formulaire  post article -->
+    <ion-card id="container" *ngIf="post==1">
+      <ion-item color="primary">
+        <ion-label>Publier</ion-label>
+      </ion-item>
+      <form>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item lines="full">
+                <ion-label position="floating"><ion-icon  name="call-sharp" color="success" ></ion-icon> Titre </ion-label>
+                <ion-input type="text" name="title"  [(ngModel)]="title"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item lines="full">
+                <ion-label position="floating"><ion-icon  name="pricetags-sharp" color="success" ></ion-icon> Prix</ion-label>
+                <ion-input type="number" name="prix"  [(ngModel)]="montant"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item lines="full" size='6'>
+                <ion-label position="floating"><ion-icon name="pricetags" color="success"></ion-icon> Devise</ion-label>
+                <ion-select [(ngModel)]="devise" name="devise">
+                  <!-- <ion-select-option value="Fc">FC (Franc Congolais)</ion-select-option> -->
+                  <ion-select-option value="$">$ (Dollars Americain)</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-item *ngIf="images!=null">
+                <ion-icon name="checkbox" slot="start" color="primary" ></ion-icon>
+                <ion-label slot="end">{{images}}</ion-label>
+              </ion-item>
+              <span class="btn btn-success fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <ion-chip color="primary" size="large">
+                  <ion-icon name="add"></ion-icon>
+                  <ion-label>Select Image</ion-label> 
+                </ion-chip>
+                <input type="file" name="image" [(ngModel)]="image" (change)="changed($event)"  accept="image/x-png, image/gif, image/jpeg">
+                </span>
+                <br>
+                <div style="width: 100%;height: 15px;background: rgb(255, 255, 255);border-radius: 10px;" *ngIf="activeProgress==true">
+                  <div style="height: 100%;background:linear-gradient(45deg, #cf2626 , #39d341ef , rgb(50, 50, 202));border-radius: 10px;" [ngStyle]="{'width.%': pourc}">
+                  </div>
+                </div>
+            </ion-col>
+          </ion-row>
+          <center>
+              <ion-button [disabled]="!title || !montant || !devise || !image" (click)="newArticle(title,montant,devise,images)">Valider</ion-button>
+          </center>
+      </ion-grid>
+      </form>
+    </ion-card>
+
+    <!-- Liste des demandes de recharge -->
+    <ion-card id="container" *ngIf="sNotif==1" >
+      <ion-item color="primary">
+        <ion-label>Demandes Approvisionnement</ion-label>
+      </ion-item>
+        <ion-item *ngFor="let not of notif" (click)="getOne(not.id)" (click)="oneN=1" (click)="recharge=0" (click)="post=0" (click)="sNotif=0">
+          <ion-label>
+              {{not.day}} - {{not.montant}} $
+          </ion-label>
+          <ion-icon name="close" slot="end" color="danger" *ngIf="not.state==-1"></ion-icon>
+          <ion-icon name="checkmark-circle" slot="end" color="primary" *ngIf="not.state==1"></ion-icon>
+          <ion-icon name="warning" color="warning" slot="end" *ngIf="not.state==0"></ion-icon>
+          </ion-item>
+    </ion-card>
+
+    <!--  une demande de recharge  -->
+    <ion-card *ngIf="oneN==1"  id="container">
+      <ion-item color="primary">
+        <ion-label>Recharge</ion-label>
+      </ion-item>
+        <ion-item>
+          <ion-icon name="person-circle" slot="start" color="primary"></ion-icon>
+          <ion-label slot="end">{{oneNot.custum[0]}}
+            <p>{{oneNot.custum[1]}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="calendar" slot="start" color="primary"></ion-icon>
+          <ion-label slot="end">{{oneNot.day}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="wallet" slot="start" color="primary"></ion-icon>
+          <ion-label slot="end">{{oneNot.montant}} $</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label slot="start">Traitment</ion-label>
+          <ion-icon name="close" slot="end" color="danger" *ngIf="oneNot.state==-1"></ion-icon>
+          <ion-icon name="checkmark-circle" slot="end" color="primary" *ngIf="oneNot.state==1"></ion-icon>
+          <ion-icon name="warning" color="warning" slot="end" *ngIf="oneNot.state==0"></ion-icon>    </ion-item>
+        <ion-item *ngIf="oneNot.state==0 && fx.profil.admin==1">
+          <ion-badge slot="start" color="primary" (click)="confirm(oneNot.id,'1',oneNot.idCustum)">Confirmer</ion-badge>
+          <ion-badge slot="end" color="danger" (click)="confirm(oneNot.id,'-1',oneNot.idCustum)">Annuler</ion-badge>
+        </ion-item>
+      <img src="{{fx.adrImg}}{{oneNot.image}}" alt="" srcset="">
+    </ion-card>
+
+    <!-- Formulaire  decaisse -->
+    <ion-card *ngIf="decaisse==1">
+      <ion-item color="primary">
+        <ion-label>Decaisser</ion-label>
+      </ion-item>
+      <ion-item lines='full'>
+        <ion-badge slot="start" style="border-bottom: 2px blue solid;" (click)="party=''">Formulaire</ion-badge>
+        <ion-badge slot="end" (click)="party='journal'">Journal</ion-badge>
+      </ion-item>
+      <form *ngIf="party!='journal'">
+        <ion-item lines="full">
+          <ion-label position="floating"><ion-icon  name="pricetags-sharp" color="primary" ></ion-icon> Montant en $</ion-label>
+          <ion-input type="number" name="prix"  [(ngModel)]="montant"></ion-input>
+          <ion-input value="$" type="hidden" [(ngModel)]="devise" name="devise"></ion-input>
+          </ion-item>
+
           <ion-item lines="full">
-            <ion-label position="floating"><ion-icon  name="pricetags-sharp" color="success" ></ion-icon> Montant en $</ion-label>
-            <ion-input type="number" name="prix"  [(ngModel)]="montant"></ion-input>
-            <ion-input value="$" type="hidden" [(ngModel)]="devise" name="devise"></ion-input>
+            <ion-label position="floating"><ion-icon  name="pencil-sharp" color="primary" ></ion-icon> Motif de la sortie</ion-label>
+            <ion-input type="text" name="motif"  [(ngModel)]="motif"></ion-input>
           </ion-item>
-        </ion-col>
+          <center>
+              <ion-button color="primary" [disabled]="!motif || !montant" (click)="decaisseFx(montant,motif)">Valider</ion-button>
+          </center>
+      </form>
+      <ion-list *ngIf="party=='journal'">
+        <ion-item *ngFor="let journ of journalDecharge">
+          <ion-label>
+              {{journ.stamp}} - <strong style="text-align: right;">{{journ.somme}} $</strong>
+              <p>{{journ.motif}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card>
 
-        <ion-col size="12">
-          <ion-item *ngIf="images!=null">
-            <ion-icon name="checkbox" slot="start" color="primary" ></ion-icon>
-            <ion-label slot="end">{{images}}</ion-label>
-          </ion-item>
-          <span class="btn btn-success fileinput-button">
-            <i class="glyphicon glyphicon-plus"></i>
-            <ion-chip color="primary" size="large">
-              <ion-icon name="camera"></ion-icon>
-              <ion-label>Capture du message de confirmation ou relevee </ion-label> 
-            </ion-chip>
-            <input type="file" name="image" [(ngModel)]="image" (change)="changed($event)"  accept="image/x-png, image/gif, image/jpeg">
-            </span>
-            <br>
-            <div style="width: 100%;height: 15px;background: rgb(255, 255, 255);border-radius: 10px;" *ngIf="activeProgress==true">
-              <div style="height: 100%;background:linear-gradient(45deg, #cf2626 , #39d341ef , rgb(50, 50, 202));border-radius: 10px;" [ngStyle]="{'width.%': pourc}">
-              </div>
-            </div>
-        </ion-col>
-
-      </ion-row>
-      <center>
-          <ion-button [disabled]="!montant || !image" (click)="compteRech(montant,images)">Valider</ion-button>
-      </center>
-  </ion-grid>
-  </form> 
-</ion-card>
-
-<!-- Formulaire  post article -->
-<ion-card id="container" *ngIf="post==1">
-  <ion-item color="primary">
-    <ion-label>Publier</ion-label>
-  </ion-item>
-  <form>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12">
-          <ion-item lines="full">
-            <ion-label position="floating"><ion-icon  name="call-sharp" color="success" ></ion-icon> Titre </ion-label>
-            <ion-input type="text" name="title"  [(ngModel)]="title"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col size="6">
-          <ion-item lines="full">
-            <ion-label position="floating"><ion-icon  name="pricetags-sharp" color="success" ></ion-icon> Prix</ion-label>
-            <ion-input type="number" name="prix"  [(ngModel)]="montant"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col size="6">
-          <ion-item lines="full" size='6'>
-            <ion-label position="floating"><ion-icon name="pricetags" color="success"></ion-icon> Devise</ion-label>
-            <ion-select [(ngModel)]="devise" name="devise">
-              <!-- <ion-select-option value="Fc">FC (Franc Congolais)</ion-select-option> -->
-              <ion-select-option value="$">$ (Dollars Americain)</ion-select-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12">
-          <ion-item *ngIf="images!=null">
-            <ion-icon name="checkbox" slot="start" color="primary" ></ion-icon>
-            <ion-label slot="end">{{images}}</ion-label>
-          </ion-item>
-          <span class="btn btn-success fileinput-button">
-            <i class="glyphicon glyphicon-plus"></i>
-            <ion-chip color="primary" size="large">
-              <ion-icon name="add"></ion-icon>
-              <ion-label>Select Image</ion-label> 
-            </ion-chip>
-            <input type="file" name="image" [(ngModel)]="image" (change)="changed($event)"  accept="image/x-png, image/gif, image/jpeg">
-            </span>
-            <br>
-            <div style="width: 100%;height: 15px;background: rgb(255, 255, 255);border-radius: 10px;" *ngIf="activeProgress==true">
-              <div style="height: 100%;background:linear-gradient(45deg, #cf2626 , #39d341ef , rgb(50, 50, 202));border-radius: 10px;" [ngStyle]="{'width.%': pourc}">
-              </div>
-            </div>
-        </ion-col>
-      </ion-row>
-      <center>
-          <ion-button [disabled]="!title || !montant || !devise || !image" (click)="newArticle(title,montant,devise,images)">Valider</ion-button>
-      </center>
-  </ion-grid>
-  </form>
-</ion-card>
-
-<!-- Liste des demandes de recharge -->
-<ion-card id="container" *ngIf="sNotif==1" >
-  <ion-item color="primary">
-    <ion-label>Demandes Approvisionnement</ion-label>
-  </ion-item>
-    <ion-item *ngFor="let not of notif" (click)="getOne(not.id)" (click)="oneN=1" (click)="recharge=0" (click)="post=0" (click)="sNotif=0">
-      <ion-label>
-          {{not.day}} - {{not.montant}} $
-      </ion-label>
-      <ion-icon name="close" slot="end" color="danger" *ngIf="not.state==-1"></ion-icon>
-      <ion-icon name="checkmark-circle" slot="end" color="primary" *ngIf="not.state==1"></ion-icon>
-      <ion-icon name="warning" color="warning" slot="end" *ngIf="not.state==0"></ion-icon>
+    <!-- List clients -->
+    <ion-card *ngIf="clientsList==1">
+      <ion-item color="primary">
+        <ion-label>Liste clients</ion-label>
       </ion-item>
-</ion-card>
+        <ion-list>
+          <ion-item *ngFor="let cust of custums">
+            <ion-label>
+              {{cust.nom}}
+              <p>
+                Adresse : {{cust.adresse}} <br>
+                Telephone : {{cust.telephone}} <br>
+                Pass : {{cust.pass}}
+              </p>
+            </ion-label>
+            <ion-label slot="end">
+              <strong>{{cust.soldeDol}} $</strong>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+    </ion-card>
 
-<!--  une demande de recharge  -->
-<ion-card *ngIf="oneN==1"  id="container">
-  <ion-item color="primary">
-    <ion-label>Recharge</ion-label>
-  </ion-item>
-    <ion-item>
-      <ion-icon name="person-circle" slot="start" color="primary"></ion-icon>
-      <ion-label slot="end">{{oneNot.custum[0]}}
-        <p>{{oneNot.custum[1]}}</p>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="calendar" slot="start" color="primary"></ion-icon>
-      <ion-label slot="end">{{oneNot.day}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="wallet" slot="start" color="primary"></ion-icon>
-      <ion-label slot="end">{{oneNot.montant}} $</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label slot="start">Traitment</ion-label>
-      <ion-icon name="close" slot="end" color="danger" *ngIf="oneNot.state==-1"></ion-icon>
-      <ion-icon name="checkmark-circle" slot="end" color="primary" *ngIf="oneNot.state==1"></ion-icon>
-      <ion-icon name="warning" color="warning" slot="end" *ngIf="oneNot.state==0"></ion-icon>    </ion-item>
-    <ion-item *ngIf="oneNot.state==0 && fx.profil.admin==1">
-      <ion-badge slot="start" color="primary" (click)="confirm(oneNot.id,'1',oneNot.idCustum)">Confirmer</ion-badge>
-      <ion-badge slot="end" color="danger" (click)="confirm(oneNot.id,'-1',oneNot.idCustum)">Annuler</ion-badge>
-    </ion-item>
-  <img src="{{fx.adrImg}}{{oneNot.image}}" alt="" srcset="">
-</ion-card>
-
-<!-- Formulaire  decaisse -->
-<ion-card *ngIf="decaisse==1">
-  <ion-item color="primary">
-    <ion-label>Decaisser</ion-label>
-  </ion-item>
-  <ion-item lines='full'>
-    <ion-badge slot="start" style="border-bottom: 2px blue solid;" (click)="party=''">Formulaire</ion-badge>
-    <ion-badge slot="end" (click)="party='journal'">Journal</ion-badge>
-  </ion-item>
-   <form *ngIf="party!='journal'">
-     <ion-item lines="full">
-      <ion-label position="floating"><ion-icon  name="pricetags-sharp" color="primary" ></ion-icon> Montant en $</ion-label>
-      <ion-input type="number" name="prix"  [(ngModel)]="montant"></ion-input>
-      <ion-input value="$" type="hidden" [(ngModel)]="devise" name="devise"></ion-input>
+    <!-- Liste stock -->
+    <ion-card *ngIf="stockList==1">
+      <ion-item color="primary">
+        <ion-label>listes marchandises</ion-label>
       </ion-item>
+      <ion-list>
+        <ion-item *ngFor="let art of article" lines="full">
+          <ion-label slot="start">{{art.title}}</ion-label>
+          <strong>{{art.price}}</strong>
+          <ion-icon name="trash" color="danger" slot="end" (click)="delete(art.id)"></ion-icon>
+        </ion-item>
+      </ion-list>
+    </ion-card>
 
-      <ion-item lines="full">
-        <ion-label position="floating"><ion-icon  name="pencil-sharp" color="primary" ></ion-icon> Motif de la sortie</ion-label>
-        <ion-input type="text" name="motif"  [(ngModel)]="motif"></ion-input>
-      </ion-item>
-      <center>
-          <ion-button color="primary" [disabled]="!motif || !montant" (click)="decaisseFx(montant,motif)">Valider</ion-button>
-      </center>
-   </form>
-   <ion-list *ngIf="party=='journal'">
-    <ion-item *ngFor="let journ of journalDecharge">
-      <ion-label>
-          {{journ.stamp}} - <strong style="text-align: right;">{{journ.somme}} $</strong>
-          <p>{{journ.motif}}</p>
-      </ion-label>
-    </ion-item>
-   </ion-list>
-</ion-card>
+</div>
 
-<!-- List clients -->
-<ion-card *ngIf="clientsList==1">
-  <ion-item color="primary">
-    <ion-label>Liste clients</ion-label>
-  </ion-item>
-    <ion-list>
-      <ion-item *ngFor="let cust of custums">
-        <ion-label>
-          {{cust.nom}}
-          <p>
-            Adresse : {{cust.adresse}} <br>
-            Telephone : {{cust.telephone}} <br>
-            Pass : {{cust.pass}}
-          </p>
-        </ion-label>
-        <ion-label slot="end">
-          <strong>{{cust.soldeDol}} $</strong>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-</ion-card>
 </div>
 </ion-content>

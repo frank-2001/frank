@@ -19,6 +19,8 @@ recharge=0
 notif
 contact
 journalDecharge
+menu=1
+article
 constructor(public http:HttpClient,public fx:FunctionsService,public storage:Storage) {
   this.fx.connect()
   this.storage.get('profil').then(values=>{
@@ -55,6 +57,8 @@ custums
 update(){
   this.fx.update()
   this.getNotif()
+  this.fx.getArticle()
+  this.article=this.fx.article
   this.custums=this.fx.listCustums
   this.journalDecharge=this.fx.journalDecharge
   console.log(this.notif);
@@ -190,6 +194,22 @@ async decaisseFx(montant,motif){
     this.fx.toastMsg(reponse.message,col,2000)
   },error=>{
     load.dismiss()
+    this.fx.toastMsg("Erreur de connexion","danger",2000)
+  })
+}
+delete(id){
+  this.fx.loadingFx(1)
+  this.http.get<any>(this.fx.server+'?deleteArticle='+id).subscribe(reponse=>{    
+    if (reponse.state==true){
+      var col='primary'      
+      this.article=reponse.data
+      this.storage.set('articles',reponse.data)
+      this.update()
+    }else{ var col='danger'}
+    this.fx.loadingFx(0)
+    this.fx.toastMsg(reponse.message,col,2000)
+  },error=>{
+    this.fx.loadingFx(0)
     this.fx.toastMsg("Erreur de connexion","danger",2000)
   })
 }

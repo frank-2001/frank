@@ -25,6 +25,7 @@ export class FunctionsService {
     })
     this.update()
     this.getContact()
+    this.getArticle()
    }
    getContact(){
     this.http.get<any>(this.server+'?contact').subscribe(
@@ -240,6 +241,21 @@ getCustums(){
       this.listCustums=value           
     })
   })
+}
+
+// Get list article
+article
+getArticle(){
+    // this.fx.chargement('create')
+  this.http.get<any>(this.server+'?articles').subscribe(reponse=>{
+      this.article=reponse.data
+      this.storage.set('articles',reponse.data)
+      // this.fx.chargement('kill')
+      },err=>{
+        this.storage.get('articles').then(value=>{
+          this.article=value
+      })
+    })
 }
   async init() {
     // If using, define drivers here: await this.storage.defineDriver(/*...*/);

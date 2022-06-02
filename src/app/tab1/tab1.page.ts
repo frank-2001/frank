@@ -31,24 +31,13 @@ export class Tab1Page {
   profil
   constructor(public fx:FunctionsService,public storage:Storage) {
     this.fx.connect()
+    this.fx.getArticle()
     this.getData()
   }
   articles:any=[]
   getData(){
-    // this.fx.chargement('create')
-    this.fx.http.get<any>(this.fx.server+'?articles').subscribe(reponse=>{
-        this.articles=reponse.data
-        this.storage.set('articles',reponse.data)
-        this.topArt()
-        // this.fx.chargement('kill')
-   },err=>{
-     this.storage.get('articles').then(value=>{
-       this.articles=value
-       console.log(this.articles)
-       this.topArt()
-       
-     })
-   })
+    this.articles=this.fx.article
+    this.topArt()
   }
   top:any
   topArt(){// 4 magasins aleatoire
@@ -102,6 +91,7 @@ export class Tab1Page {
       
   }
   doRefresh(event) {
+     this.fx.getArticle()
      this.getData()
     // this.refresh();
     setTimeout(() => {

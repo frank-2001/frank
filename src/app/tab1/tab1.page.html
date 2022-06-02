@@ -13,27 +13,27 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" style="background-color: rgba(0, 0, 0, 0.397);">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div class="tit">
-    <h3>Top articles</h3>
+    <h3>Articles</h3>
   </div>
 
-  <ion-slides  [options]="slideOpts" class="slides">
+  <!-- <ion-slides  [options]="slideOpts" class="slides">
     <ion-slide class="slide" *ngFor="let art of top" style="background:url({{fx.adrImg}}/{{art.image}});background-size: 100%">
       <ion-button style="margin: 30px 0 0 0;" color="primary" (click)="newCart(art.id)">
         <ion-icon name="cart" color="light"></ion-icon>
         <ion-label>Ajouter au panier</ion-label>
       </ion-button>
       </ion-slide>
-  </ion-slides>
+  </ion-slides> -->
 <ion-row class="articles">
-  <ion-col size="6" *ngFor="let article of articles">
+  <ion-col size="6" *ngFor="let article of articles" (click)="newCart(article.id)">
       <div class="imgs" style="background:url({{fx.adrImg}}/{{article.image}});background-size: 100%;">
       </div>
-      <ion-item lines="none">
+      <ion-item lines="none" color="medium">
         <ion-label>
           {{article.title}}
            <p>
@@ -41,7 +41,7 @@
            </p> 
         </ion-label>
          <!-- <ion-button > -->
-          <ion-icon name="cart" color="primary" slot="end" size="small" (click)="newCart(article.id)"></ion-icon>
+          <ion-icon name="cart" color="light" slot="end" size="small" ></ion-icon>
         <!-- </ion-button> -->
       </ion-item>
      
