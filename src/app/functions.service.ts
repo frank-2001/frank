@@ -9,10 +9,10 @@ import { SignInPage } from './sign-in/sign-in.page';
   providedIn: 'root'
 })
 export class FunctionsService {
-  // server:any="https://instano.nunua-store.com/api-custum/index.php"
-  // file="https://instano.nunua-store.com/api-custum/"
-  file="http://localhost/Projects/Api-custum/"
-  server:any="http://localhost/Projects/Api-custum/index.php"
+  server:any="https://instano.nunua-store.com/api-custum/index.php"
+  file="https://instano.nunua-store.com/api-custum/"
+  // file="http://localhost/Projects/Api-custum/"
+  // server:any="http://localhost/Projects/Api-custum/index.php"
   adrImg=this.file+'images/'
   abonnemenet=null
   load=null

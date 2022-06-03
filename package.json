@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "author": "Franky Mk",
   "homepage": "https://instano.nunua-store.com",
+  "main": "src/main.ts",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -43,6 +44,7 @@
     "@typescript-eslint/parser": "4.16.1",
     "cordova-android": "^8.0.0",
     "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-ionic": "^5.5.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-splashscreen": "5.0.2",
@@ -70,7 +72,15 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-ionic": {
+        "APP_ID": "--app-id=\"cc60a060\" \\",
+        "CHANNEL_NAME": "Production",
+        "UPDATE_METHOD": "background",
+        "MAX_STORE": "2",
+        "MIN_BACKGROUND_DURATION": "30",
+        "UPDATE_API": "https://api.ionicjs.com"
+      }
     },
     "platforms": [
       "android"
