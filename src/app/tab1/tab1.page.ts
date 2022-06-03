@@ -33,6 +33,7 @@ export class Tab1Page {
     this.fx.connect()
     this.fx.getArticle()
     this.getData()
+    this.fx.toastMsg('Ballaye l\'ecran vers le bas pour actualiser la page!','primary',3000)
   }
   articles:any=[]
   getData(){
